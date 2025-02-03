@@ -25,7 +25,7 @@ func main() {
 	router.POST("/cars", createCar)
 	router.DELETE("/cars", deleteCar)
 	router.GET("/healthCheck", healthCheck)
-	router.Run("localhost:8080")
+	router.Run(":8080")
 }
 
 func createCar(c *gin.Context) {
