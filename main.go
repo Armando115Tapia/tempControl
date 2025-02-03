@@ -5,44 +5,45 @@ import (
 	"net/http"
 )
 
-type Car struct {
-	ID    string `json:id`
-	Title string `json:title`
-	Color string `json:color`
+type WeatherInfo struct {
+	ID          string  `json:id`
+	Timestamp   int64   `json:timestamp`
+	Temperature float32 `json:temperature`
+	Humidity    float32 `json:humidity`
 }
 
-var Cars []Car
+var WeatherData []WeatherInfo
 
 func main() {
-	Cars = []Car{
-		{ID: "1", Title: "BMW", Color: "Black"},
-		{ID: "2", Title: "Audi", Color: "White"},
+	WeatherData = []WeatherInfo{
+		{ID: "1", Timestamp: 1738614276, Temperature: 19.0, Humidity: 46.0},
+		{ID: "1", Timestamp: 1738614272, Temperature: 20.0, Humidity: 48.0},
 	}
 
 	router := gin.Default()
-	router.GET("/cars", getCars)
-	router.GET("/cars/:id", getCarByID)
-	router.POST("/cars", createCar)
-	router.DELETE("/cars", deleteCar)
+	router.GET("/weather-data", getCars)
+	router.GET("/weather/:id", getCarByID)
+	router.POST("/weather", createCar)
+	router.DELETE("/weather", deleteCar)
 	router.GET("/healthCheck", healthCheck)
 	router.Run(":8080")
 }
 
 func createCar(c *gin.Context) {
-	var newCar Car
-	if err := c.BindJSON(&newCar); err != nil {
+	var newWeatherInfo WeatherInfo
+	if err := c.BindJSON(&newWeatherInfo); err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Failed to create a car"})
 		return
 	}
-	Cars = append(Cars, newCar)
+	WeatherData = append(WeatherData, newWeatherInfo)
 }
 
 func getCars(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, Cars)
+	c.IndentedJSON(http.StatusOK, WeatherData)
 }
 
 func getCarByID(c *gin.Context) {
-	for _, car := range Cars {
+	for _, car := range WeatherData {
 		if car.ID == c.Param("id") {
 			c.IndentedJSON(http.StatusOK, car)
 			return
@@ -53,9 +54,9 @@ func getCarByID(c *gin.Context) {
 }
 
 func deleteCar(c *gin.Context) {
-	for index, car := range Cars {
+	for index, car := range WeatherData {
 		if car.ID == c.Param("id") {
-			Cars = append(Cars[:index], Cars[index+1:]...)
+			WeatherData = append(WeatherData[:index], WeatherData[index+1:]...)
 			c.IndentedJSON(http.StatusOK, gin.H{"message": "Car was deleted"})
 			return
 		}
