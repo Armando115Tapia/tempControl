@@ -24,6 +24,7 @@ func main() {
 	router.GET("/cars/:id", getCarByID)
 	router.POST("/cars", createCar)
 	router.DELETE("/cars", deleteCar)
+	router.GET("/healthCheck", healthCheck)
 	router.Run("localhost:8080")
 }
 
@@ -61,4 +62,9 @@ func deleteCar(c *gin.Context) {
 	}
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Car is not found"})
 
+}
+
+func healthCheck(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, gin.H{"message": "Healthcheck is OK"})
+	return
 }
