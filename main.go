@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -30,10 +31,27 @@ func main() {
 		os.Getenv("DB_NAME"),
 	)
 
+	// Add retry logic for database connection
 	var err error
-	db, err = sql.Open("postgres", dbURL)
+	for i := 0; i < 5; i++ {
+		db, err = sql.Open("postgres", dbURL)
+		if err != nil {
+			log.Printf("Failed to connect to database, attempt %d: %v", i+1, err)
+			time.Sleep(5 * time.Second)
+			continue
+		}
+		
+		err = db.Ping()
+		if err == nil {
+			break
+		}
+		
+		log.Printf("Failed to ping database, attempt %d: %v", i+1, err)
+		time.Sleep(5 * time.Second)
+	}
+	
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Could not connect to database after 5 attempts")
 	}
 	defer db.Close()
 
