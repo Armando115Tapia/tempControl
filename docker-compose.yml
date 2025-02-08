@@ -59,7 +59,6 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SERVER_ROOT_URL=http://localhost/
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
-      - GF_INSTALL_PLUGINS=grafana-postgresql-datasource
       - GF_LOG_LEVEL=debug
       - GF_LOG_MODE=console
     volumes:
@@ -72,17 +71,6 @@ services:
     depends_on:
       - db
     restart: unless-stopped
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /var/lib/grafana/plugins
-        grafana-cli --pluginsDir "/var/lib/grafana/plugins" plugins install grafana-postgresql-datasource
-        exec grafana-server                      \
-          --homepath=/usr/share/grafana         \
-          --config=/etc/grafana/grafana.ini     \
-          --packaging=docker                     \
-          "$@"
 
 networks:
   weather-network:
