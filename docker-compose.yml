@@ -59,13 +59,8 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SERVER_ROOT_URL=http://localhost/
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
-      - GF_LOG_LEVEL=debug
-      - GF_LOG_MODE=console
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
-      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
-      - ./grafana/dashboards:/var/lib/grafana/dashboards
     networks:
       - weather-network
     depends_on:
@@ -78,4 +73,4 @@ networks:
 
 volumes:
   postgres_data:
-  grafana_data: 
+  grafana_data:
