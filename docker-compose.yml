@@ -51,7 +51,7 @@ services:
     restart: unless-stopped
 
   grafana:
-    image: grafana/grafana:7.1.5-ubuntu
+    image: grafana/grafana:latest
     container_name: grafana
     expose:
       - "3000"
