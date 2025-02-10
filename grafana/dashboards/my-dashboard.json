@@ -1,0 +1,66 @@
+{
+  "title": "My Dashboard",
+  "description": "Example dashboard with various metrics",
+  "panels": [
+    {
+      "id": "panel-1",
+      "title": "CPU Usage",
+      "type": "line-chart",
+      "metrics": [
+        {
+          "query": "system.cpu.usage",
+          "aggregation": "avg"
+        }
+      ],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "panel-2",
+      "title": "Memory Usage",
+      "type": "gauge",
+      "metrics": [
+        {
+          "query": "system.memory.used_percent",
+          "aggregation": "current"
+        }
+      ],
+      "position": {
+        "x": 6,
+        "y": 0,
+        "width": 4,
+        "height": 4
+      }
+    },
+    {
+      "id": "panel-3",
+      "title": "Network Traffic",
+      "type": "area-chart",
+      "metrics": [
+        {
+          "query": "system.network.in_bytes",
+          "label": "Inbound"
+        },
+        {
+          "query": "system.network.out_bytes",
+          "label": "Outbound"
+        }
+      ],
+      "position": {
+        "x": 0,
+        "y": 4,
+        "width": 10,
+        "height": 4
+      }
+    }
+  ],
+  "timeRange": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "refresh": "1m"
+}
