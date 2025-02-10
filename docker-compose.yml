@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   nginx:
     image: nginx:latest
@@ -51,7 +49,7 @@ services:
     restart: unless-stopped
 
   grafana:
-    image: grafana/grafana-enterprise:latest
+    image: grafana/grafana:latest
     container_name: grafana
     expose:
       - "3000"
