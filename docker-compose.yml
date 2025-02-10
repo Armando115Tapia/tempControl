@@ -61,9 +61,8 @@ services:
       - GF_SERVER_ROOT_URL=http://localhost/
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
     volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/dashboards:/etc/grafana/dashboards
-      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana.ini:/etc/grafana/grafana.ini
+      - ./dashboards:/etc/grafana/dashboards
     networks:
       - weather-network
     depends_on:
