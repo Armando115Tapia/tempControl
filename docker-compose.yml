@@ -63,6 +63,7 @@ services:
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/grafana/dashboards
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
     networks:
       - weather-network
     depends_on:
