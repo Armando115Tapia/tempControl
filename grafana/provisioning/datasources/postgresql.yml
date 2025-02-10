@@ -22,4 +22,4 @@ datasources:
     secureJsonData:
       password: "postgres"
     version: 1
-    editable: true 
+    editable: true
