@@ -13,7 +13,9 @@ services:
     restart: unless-stopped
 
   api:
-    image: temp-control:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     expose:
       - "8080"
     environment:
